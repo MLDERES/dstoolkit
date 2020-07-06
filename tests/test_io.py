@@ -48,6 +48,12 @@ def test_get_latest_data_filename(tmp_path):
     with pytest.raises(AssertionError):
         assert get_latest_filename(tmp_path,'1','.txt')
 
+def test_write_data():
+    assert 1
+
+def test_read_latest():
+    assert 1
+
 
 
 
