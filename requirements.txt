@@ -1,1 +1,4 @@
 twine
+pytest
+pandas
+nosetest
