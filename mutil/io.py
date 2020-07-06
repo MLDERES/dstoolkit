@@ -1,6 +1,7 @@
 import datetime as dt
 from pathlib import Path
-
+from .constants import TRUE_VALUES, FALSE_VALUES
+import pandas as pd
 
 class DataFolder():
     
@@ -32,7 +33,7 @@ class DataFolder():
 def _ensure_path(f):
     return f if isinstance(f, Path) else Path(f)
 
-def get_latest_file(path, filename_like, file_ext):
+def get_latest_filename(path, filename_like, file_ext):
     """
     Find absolute path to the file with the latest timestamp given the datasource name
     and file extension in the path
@@ -59,7 +60,7 @@ def get_latest_file(path, filename_like, file_ext):
     fname = max(all_files, key=lambda x: x.stat().st_mtime).name
     return fname
 
-def get_latest_data_filename(path, filename_like, file_ext='.csv'):
+def get_latest_data_filename(path, filename_like):
     """
     Utility method for finding .csv files
     
@@ -69,8 +70,6 @@ def get_latest_data_filename(path, filename_like, file_ext='.csv'):
         Folder to look for the file
     datasource : str
         Stem name of the file
-    file_ext : str
-        The name file extension to be looking for
     
     Returns
     -------
@@ -78,7 +77,7 @@ def get_latest_data_filename(path, filename_like, file_ext='.csv'):
         The absolute path of the file, if it exists or None
 
     """
-    return get_latest_file(path, filename_like, file_ext)
+    return get_latest_filename(path, filename_like, file_ext='.csv')
 
 def make_ts_filename(path, src_name, suffix, with_ts=True):
     """
@@ -110,7 +109,7 @@ def make_ts_filename(path, src_name, suffix, with_ts=True):
 
     Examples
     --------
-    >>> make_ts_filename('/usr/tmp','hello','csv', with_ts=False)
+    >>> make_ts_fname('/usr/tmp','hello','csv', with_ts=False)
     PosixPath('/usr/tmp/hello_latest.csv')
 
     """
