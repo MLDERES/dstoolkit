@@ -1,4 +1,3 @@
 twine
 pytest
 pandas
-nosetest

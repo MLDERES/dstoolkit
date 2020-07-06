@@ -3,7 +3,7 @@ import pandas as pd
 from pathlib import Path
 import time
 
-from mutil import DataFolder, get_latest_filename, get_latest_data_filename
+from mlderes.dstoolkit import DataFolder, get_latest_filename, get_latest_data_filename
 
 
 @pytest.fixture
