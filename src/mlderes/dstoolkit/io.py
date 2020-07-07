@@ -114,6 +114,7 @@ def make_ts_filename(path, src_name, suffix, with_ts=True):
 
     """
     NOW = dt.datetime.now()
+    TODAY = dt.datetime.today()
     path = _ensure_path(path)
     filename_suffix = f'{TODAY.month:02d}{TODAY.day:02d}_{NOW.hour:02d}{NOW.minute:02}{NOW.second:02d}' \
         if with_ts else "latest"

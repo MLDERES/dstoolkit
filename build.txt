@@ -1,0 +1,4 @@
+pip uninstall mlderes.dstoolkit
+python setup.py sdist
+twine upload dist/*
+pip install mlderes.dstoolkit
