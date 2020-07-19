@@ -8,7 +8,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='mlderes.dstoolkit',
-    version='0.1.4',
+    version='0.1.5',
     description='',
     package_dir={"":'src'},
     # Telling the Disttools that the default directory is 'src'
