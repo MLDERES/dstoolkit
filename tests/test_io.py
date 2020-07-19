@@ -3,6 +3,8 @@ import pandas as pd
 from pathlib import Path
 import time
 
+# In order for this to work, the package needs to be installed (which is helpful)
+# pip install -e . should do the trick
 from mlderes.dstoolkit import DataFolder, get_latest_filename, get_latest_data_filename
 
 

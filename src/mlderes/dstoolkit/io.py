@@ -89,7 +89,7 @@ def make_ts_filename(path, src_name, suffix, with_ts=True):
     
     Parameters
     ----------
-    dir_name : str or Path
+    path : str or Path
         The directory where the file will live
     
     src_name: str
@@ -127,25 +127,27 @@ def make_ts_filename(path, src_name, suffix, with_ts=True):
 def write_data(df, path, src_name,  with_ts=True, **kwargs):
     """
     Export the dataset to a file
-    Parameters
+    
+    Parameters:
     ----------
     df : pandas.DataFrame 
         the dataset to write
-    datasource_name : str
-        the basefilename to write
     path : str or Path
         the path where the file will finally live
-    
+    datasource_name : str
+        the basefilename to write
     with_ts : bool
         If True, then append the month, day and hour, minute, second to the filename to be written
         otherwise append the suffix 'latest' to the basename
-    
     ```***kwargs```
-        Keyword arguments supported by `DataFrame.to_csv`
-        idx : str or int
-            the name of the index or the column number
-    
-    return: the name of the file written
+        Keyword arguments supported by `pandas.DataFrame.to_csv()`__ 
+            
+    Return: Path
+    ------
+    the name of the file written
+
+    __ https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_csv.html
+
     """
     fn = make_ts_filename(path, src_name=src_name, suffix='.csv')
 
@@ -160,11 +162,12 @@ def read_latest(path, src_name, **kwargs):
     
     Parameters
     ----------
-    src_name : str
-        the stem of the file used to locate the file
     path : os.Pathlike or str
         the path to search for the data file
 
+    src_name : str
+        the stem of the file used to locate the file
+   
     Return
     ------
     pandas.DataFrame
