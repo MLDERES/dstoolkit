@@ -3,26 +3,27 @@ from pathlib import Path
 from .constants import TRUE_VALUES, FALSE_VALUES
 import pandas as pd
 
+
 class DataFolder():
-    
+
     def __init__(self, root_data_folder):
         self._root = _ensure_path(root_data_folder)
 
     def get_root(self):
         return self._root
-    
+
     def get_procesed(self):
         return self._root / 'processed'
-    
+
     def get_raw(self):
         return self._root / 'raw'
-    
+
     def get_interim(self):
         return self._root / 'interim'
-    
+
     def get_external(self):
         return self._root / 'external'
-    
+        
     ROOT = property(get_root)
     RAW = property(get_raw)
     PROCESSED = property(get_procesed)
@@ -32,6 +33,7 @@ class DataFolder():
 
 def _ensure_path(f):
     return f if isinstance(f, Path) else Path(f)
+
 
 def get_latest_filename(path, filename_like, file_ext):
     """
@@ -210,11 +212,8 @@ def read_latest(path, src_name, **kwargs):
 #     return filename
 
 
-
 # def get_file_version_from_name(fn):
 #     return fn.split('_')[1]
-
-
 
 
 if __name__ == "__main__":

@@ -5,4 +5,4 @@ def hello(name=''):
     if len(name):
         return f'Hello, {name}. I am coming to you from the toolkit'
     else:
-        return f'Hello!  I am coming to you from the toolkit!'
+        return 'Hello!  I am coming to you from the toolkit!'
