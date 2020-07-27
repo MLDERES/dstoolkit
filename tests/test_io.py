@@ -11,11 +11,6 @@ from mlderes.dstoolkit import DataFolder, get_latest_filename, \
 
 
 @pytest.fixture
-def simple_dataframe():
-    return pd.DataFrame({'A': [range(5)], 'B': [range(0, 10, 2)]})
-
-
-@pytest.fixture
 def default_dataroot():
     return './tests/data'
 
