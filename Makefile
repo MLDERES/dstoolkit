@@ -81,6 +81,16 @@ release: dist ## package and upload a release
 	git push --follow-tags
 	#twine upload --skip-existing -u mlderes dist/*
 
+release-dev: dist
+	bump2version --tag 
+
+patch: dist
+	bump2version --tag --allow-dirty patch
+
+
+dist-test: dist ## package and push to test.pypi.org
+	twine upload --config-file .pypirc dist/*
+
 dist: clean ## builds source and wheel package
 	pip uninstall mlderes.dstoolkit
 	python setup.py sdist
