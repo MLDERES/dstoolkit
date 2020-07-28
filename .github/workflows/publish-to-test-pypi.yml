@@ -13,8 +13,10 @@ jobs:
       with:
         python-version: 3.7
     - name: Build a binary
-      run: >- python setup.py sdist
-
+      run: >- 
+        python -m 
+        setup.py 
+        sdist
     - name: Publish distribution to Test PyPI
       uses: pypa/gh-action-pypi-publish@master
       with:
