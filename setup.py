@@ -6,9 +6,12 @@ this_directory = path.abspath(path.dirname(__file__))
 with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
+with open(path.join(this_directory, 'VERSION')) as version_file:
+    version = version_file.read().strip()
+
 setup(
     name='mlderes.dstoolkit',
-    version='0.1.5',
+    version=version,
     description='',
     package_dir={"":'src'},
     # Telling the Disttools that the default directory is 'src'
