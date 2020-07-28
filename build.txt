@@ -1,4 +1,8 @@
 pip uninstall mlderes.dstoolkit
 python setup.py sdist
+
+# This line uploads to the pypi-test facility
+twine upload --config-file .pypirc dist/*
+
 twine upload --skip-existing -u mlderes dist/* 
 pip install mlderes.dstoolkit
