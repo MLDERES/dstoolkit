@@ -205,11 +205,13 @@ def convert_to_bool(df, columns):
         if df[col].dtype != "bool":
             logging.debug(f"Converting column to boolean - {col}")
             df[col] = df[col].map(d_map, na_action="ignore")
+            df[col]=df[col].convert_dtypes(infer_objects=False,convert_string=False,
+            convert_integer=False)
     return df
 
 
 @dump_df_desc(description="Convert boolean columns to 1/0")
-def convert_from_bool(df, columns):
+def convert_from_bool(df, columns, true_value=1, false_value=0):
     """
     Convert boolean columns to 1/0
     
@@ -220,12 +222,15 @@ def convert_from_bool(df, columns):
     columns : str or list-like
         columns that are in-scope for the change, 
         if None or 'all' then all columns
-
+    true_value : any, default 1
+        the value to use in place of True in new dataframe
+    false_value : any, default 0
+        the value to use in place of False in new dataframe
     Return:
     ------
     The modified dataframe
     """
-    d_map = {False: 0, True: 1}
+    d_map = {False: false_value, True: true_value}
     for col in _get_column_list(df, columns):
         if df[col].dtype == "bool":
             logging.debug(f"Converting column from boolean - {col}")
@@ -311,7 +316,7 @@ def merge_and_fill_gaps(df, left_column, right_column):
     ------
     The modified dataframe
     """
-    
+
     logging.info("filling holes")
     pre_merge_zeros = count_empty_rows(df, column=left_column)
     logging.debug(f"Rows with 0 or NaN prior to merge {pre_merge_zeros}")
