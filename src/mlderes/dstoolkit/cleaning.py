@@ -205,8 +205,9 @@ def convert_to_bool(df, columns):
         if df[col].dtype != "bool":
             logging.debug(f"Converting column to boolean - {col}")
             df[col] = df[col].map(d_map, na_action="ignore")
-            df[col]=df[col].convert_dtypes(infer_objects=False,convert_string=False,
-            convert_integer=False)
+            df[col] = df[col].convert_dtypes(
+                infer_objects=False, convert_string=False, convert_integer=False
+            )
     return df
 
 
@@ -290,6 +291,9 @@ def remove_duplicates(df):
     """
     Remove duplicated rows
 
+    Where there is more than one row that have the same index value,
+    this function will create a dataframe with only one copy of that
+    row.
     Parameters:
     ----------
     df : DataFrame
@@ -302,33 +306,10 @@ def remove_duplicates(df):
     return df.groupby(df.index).first()
 
 
-# TODO: Write unit test for this function
-def merge_and_fill_gaps(df, left_column, right_column):
-    """
-    
-    Parameters:
-    ----------
-    df : DataFrame
-        the DataFrame to work on
-
-
-    Return:
-    ------
-    The modified dataframe
-    """
-
-    logging.info("filling holes")
-    pre_merge_zeros = count_empty_rows(df, column=left_column)
-    logging.debug(f"Rows with 0 or NaN prior to merge {pre_merge_zeros}")
-    df[left_column] = df.apply(lambda x: max(x[left_column], x[right_column]), axis=1)
-    post_merge_zeros = count_empty_rows(df, column=left_column)
-    logging.debug(f"Rows with 0 or NaN post to merge {post_merge_zeros}")
-    return df
-
-
 def count_empty_rows(df, column):
     """
-    
+    Get a count of rows with NA or 0 values
+
     Parameters:
     ----------
     df : DataFrame
@@ -339,7 +320,8 @@ def count_empty_rows(df, column):
 
     Return:
     ------
-    The modified dataframe
+    int
+        the number of rows that are NA or have a 0 value
     """
     return (df[column].isna().sum()) + (df[column] == 0).sum()
 

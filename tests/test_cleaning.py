@@ -5,6 +5,7 @@ from mlderes.dstoolkit import (
     replace_string_in_col_name,
     convert_to_bool,
     convert_from_bool,
+    remove_duplicates,
 )
 import pandas as pd
 from pandas.testing import assert_series_equal, assert_frame_equal
@@ -52,6 +53,13 @@ def test_convert_from_bool(boolean_dataframe):
     df_test = boolean_dataframe.copy()
     df_actual = convert_from_bool(df_test, columns="D")
     assert_series_equal(df_actual['D'], pd.Series(data=[1, 0, 1, 0]),check_names=False)
+
+def test_remove_duplicates():
+    df_test = pd.DataFrame({'A':range(5)},index=[1,1,2,2,3])
+    df_result = remove_duplicates(df_test)
+    df_expected = pd.DataFrame({'A':[0,2,4]},index=[1,2,3])
+    assert_frame_equal(df_result, df_expected)
+    
 
 
 
