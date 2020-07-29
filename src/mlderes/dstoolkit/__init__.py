@@ -1,4 +1,4 @@
-__version__ = "0.2.4"
+__version__ = "0.3.0-dev0"
 from .io import (
     get_latest_filename,
     get_latest_data_filename,
