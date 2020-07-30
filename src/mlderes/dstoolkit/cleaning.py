@@ -5,10 +5,6 @@ import pandas as pd
 from pandas.core.dtypes.inference import is_list_like
 
 
-TODAY = dt.datetime.today()
-_DEBUG = False
-
-
 def _get_list(item, errors="ignore"):
     """
     Return a list from the item passed.
@@ -326,19 +322,10 @@ def count_empty_rows(df, column):
     return (df[column].isna().sum()) + (df[column] == 0).sum()
 
 
-def get_dict_from_string(s):
-    try:
-        d = eval(s)
-    except Exception as e:
-        d = {}
-        logging.error(e)
-    return d
-
-
 def split_merged(df):
     """
-    Given a merged dataset return the two parts (those that matched
-    and those that didn't)
+    Given a merged dataset (columns include _merge suffix)
+    return the two parts (those that matched and those that didn't)
        
     Parameters:
     ----------
@@ -347,70 +334,17 @@ def split_merged(df):
 
     Return:
     ------
-    The modified dataframe
+    out : tuple of DataFrames
+        the dataframe with the parts that matched (on the join), 
+        the dataframe with the columns that didn't match
 
+    Notes:
+    -----
+    This function was used to determine which records could not
+    be matched to an existing dataset.
     """
     df_missing = df[df["_merge"] != "both"]
     df = df[df["_merge"] == "both"]
     df.drop(columns=["_merge"], errors="ignore", inplace=True)
     df_missing.drop(columns=["_merge"], errors="ignore", inplace=True)
     return df, df_missing
-
-
-# TODO: Need a test for this method
-def force_data_types(df, map, columns="all", errors="ignore"):
-    """
-
-    Parameters:
-    ----------
-    df : DataFrame
-        the DataFrame to work on
-    columns : str or list-like
-        columns that are in-scope for the change, 
-        if None or 'all' then all columns
-
-    Return:
-    ------
-    The modified dataframe
-    """
-    cols = _get_column_list(df, columns)
-    for c in cols:
-        col_type = map.get(c, None)
-        if col_type is None:
-            logging.debug(f"No conversion available for column {c}.")
-            continue
-        if col_type == "date":
-            df[c] = pd.to_datetime(df[c]).date()
-        else:
-            df[c] = df[c].as_type(col_type)
-
-
-def text_to_dict(df, columns="all"):
-    """
-    
-    Parameters:
-    ----------
-    df : DataFrame
-        the DataFrame to work on
-    columns : str or list-like
-        columns that are in-scope for the change, 
-        if None or 'all' then all columns
-
-    Return:
-    ------
-    The modified dataframe
-    """
-    cols = _get_column_list(df, columns)
-    for column in cols:
-        df[column] = df[column].apply(
-            lambda x: {} if pd.isna(x) else ast.literal_eval(x)
-        )
-    return df
-
-
-if __name__ == "__main__":
-    print("Testing _get_list")
-    print(f'{_get_list("A") == ["A"]}')
-    print(f'{_get_list(["A","B"]) == ["A","B"]}')
-    df = pd.DataFrame({"A": range(5), "B": range(5)})
-    print(f'{_get_column_list(df,"A") == ["A"]}')
