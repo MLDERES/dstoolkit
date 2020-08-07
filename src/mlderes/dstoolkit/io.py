@@ -108,8 +108,8 @@ def make_ts_filename(path, src_name, suffix, with_ts=True):
     with_ts : bool, default True
         if True, use the current datetime as a 
         timestamp (MMddHHmmss) to version the file
-        if False the file version will be latest
-        the 
+        if False, do not add a timestamp to the
+        filename
     
     Returns
     -------
@@ -162,7 +162,7 @@ def write_data(df, path, src_name, with_ts=True, **kwargs):
     __ https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_csv.html
 
     """
-    fn = make_ts_filename(path, src_name=src_name, suffix=".csv")
+    fn = make_ts_filename(path, src_name=src_name, suffix=".csv", with_ts=with_ts)
 
     if "float_format" not in kwargs.keys():
         kwargs["float_format"] = "%.3f"
