@@ -407,6 +407,40 @@ def text_to_dict(df, columns="all"):
         )
     return df
 
+def reorder_columns(df: pd.DataFrame, fixed_columns:Union[str, Sequence[str]])->pd.DataFrame:
+    '''
+    Restructure a dataframe to put the provided columns first in the output
+
+    Parameters:
+    ----------
+    df : DataFrame
+        the DataFrame to work on
+    columns : str or list-like
+        the columns that should be put first
+
+    Return:
+    ------
+    The modified dataframe
+
+    Example:
+    --------
+    >>> import pandas as pd
+    >>> df = pd.DataFrame({'A':range(5),'B':range(5), 'C':range(5)})
+    >>> df
+       A  B  C
+    0  0  0  0
+    1  1  1  1
+    2  2  2  2
+    3  3  3  3
+    4  4  4  4
+    >>> reorder_columns(df, ['C','A'])
+       C  A  B
+    0  0  0  0
+    1  1  1  1
+    2  2  2  2
+    3  3  3  3
+    4  4  4  4
+    '''
 
 if __name__ == "__main__":
     print("Testing _get_list")

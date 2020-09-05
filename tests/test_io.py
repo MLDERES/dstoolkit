@@ -36,6 +36,10 @@ def test_get_latest_filename(tmp_path):
     with pytest.raises(AssertionError):
         assert get_latest_filename(tmp_path, "1", ".txt")
 
+    latest = tmp_path / '02_latest.txt'
+    latest.write_text('something')
+    assert get_latest_filename(tmp_path, "02", "txt") == "02_latest.txt"
+
 
 def test_get_latest_data_filename(tmp_path):
     r = tmp_path / "01.csv"
