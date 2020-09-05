@@ -1,3 +1,5 @@
+[![Known Vulnerabilities](https://snyk.io/test/github/MLDERES/dstoolkit/badge.svg?targetFile=requirements.txt)](https://snyk.io/test/github/MLDERES/dstoolkit?targetFile=requirements.txt)
+
 # DSToolkit - utilities for better analytics projects
 A library of tools that I use to manage files, clean datasets and do exploratory data analysis
 
