@@ -77,7 +77,7 @@ servedocs: docs ## compile the docs watching for changes
 	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
 
 release: dist ## package and upload a release
-	bump2version --tag minor
+	bump2version --tag release
 	git push --follow-tags
 	#twine upload --skip-existing -u mlderes dist/*
 
